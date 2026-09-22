@@ -6,6 +6,7 @@ const stays = [
     price: 185000,
     rating: 4.92,
     description: "북촌 골목 가까이에서 한옥의 고요함을 즐길 수 있는 숙소입니다.",
+    amenities: ["조식", "에어컨", "무료 Wi-Fi", "마당"],
     capacity: 2,
     availableDates: ["2025-06-14", "2025-06-15", "2025-06-21"],
     image:
@@ -18,6 +19,7 @@ const stays = [
     price: 220000,
     rating: 4.88,
     description: "제주 바다와 노을을 바라보며 여유로운 휴식을 누리는 집입니다.",
+    amenities: ["바다 전망", "주방", "무료 주차", "세탁기"],
     capacity: 4,
     availableDates: ["2025-06-15", "2025-06-22", "2025-07-05"],
     image:
@@ -30,6 +32,7 @@ const stays = [
     price: 145000,
     rating: 4.79,
     description: "나무 향이 가득한 숲속에서 조용히 쉬어갈 수 있는 작은 캐빈입니다.",
+    amenities: ["벽난로", "바비큐", "무료 Wi-Fi", "반려동물 동반 가능"],
     capacity: 3,
     availableDates: ["2025-06-14", "2025-06-22", "2025-07-05"],
     image:
@@ -42,6 +45,7 @@ const stays = [
     price: 168000,
     rating: 4.85,
     description: "해운대의 도시 풍경과 가까운 해변 산책을 함께 즐길 수 있는 로프트입니다.",
+    amenities: ["도시 전망", "헬스장", "주방", "업무 공간"],
     capacity: 4,
     availableDates: ["2025-06-14", "2025-06-21", "2025-07-05"],
     image:
@@ -50,6 +54,9 @@ const stays = [
 ];
 
 const listingResults = document.querySelector("#listing-results");
+const listingsSection = document.querySelector(".listings");
+const detailSection = document.querySelector("#stay-detail");
+const detailContent = document.querySelector("#detail-content");
 const searchForm = document.querySelector(".search__form");
 const queryInput = searchForm.elements.query;
 const dateInput = searchForm.elements.date;
@@ -63,6 +70,12 @@ function formatPrice(price) {
 function createStayCard(stay) {
   const card = document.createElement("article");
   card.className = "stay-card";
+
+  const selectButton = document.createElement("button");
+  selectButton.className = "stay-card__select";
+  selectButton.type = "button";
+  selectButton.setAttribute("aria-label", `${stay.title} 상세 정보 보기`);
+  selectButton.addEventListener("click", () => selectStay(stay.id));
 
   const image = document.createElement("img");
   image.className = "stay-card__image";
@@ -84,7 +97,8 @@ function createStayCard(stay) {
   details.textContent = `₩${formatPrice(stay.price)} / 박 · ★ ${stay.rating}`;
 
   content.append(location, title, details);
-  card.append(image, content);
+  selectButton.append(image, content);
+  card.append(selectButton);
   return card;
 }
 
@@ -121,6 +135,97 @@ function renderListings(listings) {
   listingResults.append(grid);
 }
 
+function createBackButton() {
+  const button = document.createElement("button");
+  button.className = "detail__back";
+  button.type = "button";
+  button.textContent = "← 목록으로 돌아가기";
+  button.addEventListener("click", showListings);
+  return button;
+}
+
+function renderDetail(stayId) {
+  detailContent.replaceChildren();
+  listingsSection.hidden = true;
+  detailSection.hidden = false;
+
+  const stay = stays.find((item) => item.id === stayId);
+  if (!stay) {
+    const message = document.createElement("p");
+    message.className = "detail__missing";
+    message.textContent = "요청한 숙소를 찾을 수 없습니다.";
+    detailContent.append(message, createBackButton());
+    return;
+  }
+
+  const image = document.createElement("img");
+  image.className = "detail__image";
+  image.src = stay.image;
+  image.alt = `${stay.location}의 ${stay.title}`;
+
+  const location = document.createElement("p");
+  location.className = "detail__location";
+  location.textContent = stay.location;
+
+  const title = document.createElement("h3");
+  title.className = "detail__title";
+  title.textContent = stay.title;
+
+  const summary = document.createElement("p");
+  summary.className = "detail__summary";
+  summary.textContent = `₩${formatPrice(stay.price)} / 박 · ★ ${stay.rating} · 최대 ${stay.capacity}명`;
+
+  const description = document.createElement("p");
+  description.textContent = stay.description;
+
+  const amenitiesTitle = document.createElement("h4");
+  amenitiesTitle.textContent = "편의 시설";
+
+  const amenities = document.createElement("ul");
+  amenities.className = "detail__amenities";
+  stay.amenities.forEach((amenity) => {
+    const item = document.createElement("li");
+    item.textContent = amenity;
+    amenities.append(item);
+  });
+
+  detailContent.append(
+    createBackButton(),
+    image,
+    location,
+    title,
+    summary,
+    description,
+    amenitiesTitle,
+    amenities,
+  );
+}
+
+function showListings() {
+  if (window.location.hash) {
+    window.location.hash = "";
+    return;
+  }
+
+  detailSection.hidden = true;
+  listingsSection.hidden = false;
+}
+
+function selectStay(id) {
+  window.location.hash = `stay/${encodeURIComponent(id)}`;
+}
+
+function updateViewFromHash() {
+  const match = window.location.hash.match(/^#stay\/(.+)$/);
+  if (match) {
+    renderDetail(decodeURIComponent(match[1]));
+    return;
+  }
+
+  detailSection.hidden = true;
+  listingsSection.hidden = false;
+}
+
 function updateListings() {
   filters.query = queryInput.value;
   filters.date = dateInput.value;
@@ -139,5 +244,7 @@ guestsInput.addEventListener("change", updateListings);
 searchForm.addEventListener("reset", () => {
   window.requestAnimationFrame(updateListings);
 });
+window.addEventListener("hashchange", updateViewFromHash);
 
 updateListings();
+updateViewFromHash();
