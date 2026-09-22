@@ -8,7 +8,7 @@
   - _Requirements: 1.1_
   - _Done when: 브라우저에서 `index.html`을 열었을 때 상단 영역, 검색 영역, 숙소 목록이 들어갈 영역, 상세 영역이 오류 없이 표시된다._
 
-- [ ] 2. Add sample stay data and listing rendering
+- [x] 2. Add sample stay data and listing rendering
   - `src/main.js`를 추가해 샘플 숙소 데이터를 정의하고, 초기 숙소 카드 목록을 렌더링한다.
   - 카드에는 이미지, 이름 또는 위치, 가격, 평점이 표시되게 한다.
   - 숙소 데이터가 비어 있는 경우 빈 상태 메시지를 렌더링하는 분기를 포함한다.
