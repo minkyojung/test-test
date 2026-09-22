@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="원하는 여행을 위한 머무를 곳을 찾아보세요."
+    />
+    <title>Stayfinder | 여행 숙소 탐색</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <header class="hero">
+        <a class="brand" href="#" aria-label="Stayfinder 홈">Stayfinder</a>
+        <div class="hero__content">
+          <p class="eyebrow">나만의 여행을 위한 공간</p>
+          <h1>머물고 싶은 곳을 발견하세요.</h1>
+          <p>도시의 활기부터 자연 속 휴식까지, 다음 여행에 어울리는 숙소를 찾아보세요.</p>
+        </div>
+      </header>
+
+      <section class="search" aria-labelledby="search-title">
+        <h2 id="search-title">여행 조건 검색</h2>
+        <form class="search__form">
+          <label>
+            어디로 떠나시나요?
+            <input type="search" name="query" placeholder="도시 또는 숙소 검색" />
+          </label>
+          <label>
+            체크인
+            <input type="date" name="date" />
+          </label>
+          <label>
+            인원
+            <select name="guests">
+              <option value="">인원 선택</option>
+              <option value="1">1명</option>
+              <option value="2">2명</option>
+              <option value="3">3명</option>
+              <option value="4">4명 이상</option>
+            </select>
+          </label>
+          <button type="submit">숙소 검색</button>
+          <button type="reset">조건 초기화</button>
+        </form>
+      </section>
+
+      <section class="listings" aria-labelledby="listings-title">
+        <div class="section-heading">
+          <p class="eyebrow">추천 숙소</p>
+          <h2 id="listings-title">여행지에서 만나는 특별한 공간</h2>
+        </div>
+        <div id="listing-results" aria-live="polite">
+          <p>숙소 목록을 불러올 준비가 되었습니다.</p>
+        </div>
+      </section>
+
+      <section id="stay-detail" class="detail" aria-labelledby="detail-title">
+        <h2 id="detail-title">숙소 상세 정보</h2>
+        <div id="detail-content">
+          <p>숙소를 선택하면 상세 정보가 이곳에 표시됩니다.</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
