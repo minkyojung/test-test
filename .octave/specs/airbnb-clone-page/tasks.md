@@ -22,7 +22,7 @@
   - _Requirements: 1.1, 1.4_
   - _Done when: 브라우저 폭을 모바일 크기와 데스크톱 크기로 바꿔도 헤더, 검색 영역, 숙소 카드의 주요 정보가 잘리지 않고 보인다._
 
-- [ ] 4. Add search and trip condition filtering
+- [x] 4. Add search and trip condition filtering
   - `index.html`의 검색어 입력, 날짜 입력, 인원 선택 요소와 `src/main.js`의 필터 상태를 연결한다.
   - 검색어는 숙소 이름, 위치, 설명을 기준으로 목록을 좁히고, 날짜와 인원 조건은 샘플 데이터의 이용 가능 날짜와 수용 인원을 기준으로 목록을 좁힌다.
   - 조건 변경 시 목록을 다시 렌더링하고, 결과가 없으면 빈 결과 메시지를 표시한다.
