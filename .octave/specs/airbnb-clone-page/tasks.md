@@ -15,7 +15,7 @@
   - _Requirements: 1.1, 1.2, 1.3_
   - _Done when: 브라우저에서 `index.html`을 열었을 때 여러 숙소 카드가 보이고 각 카드에 이미지, 이름/위치, 가격, 평점이 표시된다._
 
-- [ ] 3. Style the responsive Airbnb-inspired layout
+- [x] 3. Style the responsive Airbnb-inspired layout
   - `styles.css`에 모바일 우선 레이아웃, 상단 히어로 스타일, 검색바 스타일, 반응형 숙소 카드 그리드를 추가한다.
   - 작은 화면에서는 검색 필드와 카드가 한 열로 쌓이고, 넓은 화면에서는 카드가 여러 열로 배치되게 한다.
   - 실제 에어비앤비 브랜드 자산을 복제하지 않고 카드 중심의 독자적 시각 스타일을 적용한다.
